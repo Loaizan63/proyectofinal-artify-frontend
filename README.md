@@ -10,6 +10,8 @@ El frontend consume la API del backend y muestra los huecos reportados en un **m
 Para que este proyecto funcione se debe clonar primero el repositorio del back 
 ```bash
 https://github.com/joansalcedo1/Proyecto_final_Bootcamp_back
+````
+
 
 ## 📦 Páginas principales
 
@@ -49,14 +51,14 @@ https://github.com/joansalcedo1/Proyecto_final_Bootcamp_back
 2. Instalar dependencias:
 ```bash
 npm install
-
+```
 3. Iniciar el servidor de desarrollo:
 ```bash
 npm run dev
-
+```
 4.Abrir en el navegador:
 ```bash
 http://localhost:5173
-
+```
 🎯 Objetivo
 Proveer una interfaz clara y sencilla para que los usuarios puedan reportar y consultar huecos en la ciudad de Cali.
