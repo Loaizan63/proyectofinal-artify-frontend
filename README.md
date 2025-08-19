@@ -6,6 +6,10 @@ Fue desarrollado con **React + Vite** y utiliza **Bootstrap** para los estilos.
 El frontend consume la API del backend y muestra los huecos reportados en un **mapa interactivo**, un listado en **cards** y permite crear y consultar reportes.
 
 ---
+## NOTA
+Para que este proyecto funcione se debe clonar primero el repositorio del back 
+```bash
+https://github.com/joansalcedo1/Proyecto_final_Bootcamp_back
 
 ## 📦 Páginas principales
 
@@ -41,16 +45,16 @@ El frontend consume la API del backend y muestra los huecos reportados en un **m
    ```bash
    git clone https://github.com/usuario/front-huecos.git
    cd front-huecos
+   
 2. Instalar dependencias:
-
 ```bash
 npm install
 
 3. Iniciar el servidor de desarrollo:
-
 ```bash
 npm run dev
-Abrir en el navegador:
+
+4.Abrir en el navegador:
 ```bash
 http://localhost:5173
 
