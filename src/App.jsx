@@ -4,7 +4,6 @@ import Hero from "./components/Hero"
 import Reportar from "./components/Reportar"
 import MisReportes from "./components/MisReportes"
 import { Route, Routes } from "react-router-dom"
-
 function App() {
   return (
     <>

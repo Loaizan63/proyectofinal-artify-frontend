@@ -34,7 +34,6 @@ export default function MapBoxGeneral() {
         }
         traerHuecos()
 
-
     }, [])
     //use efect para convertir las direcciones guardadas
     //en coordenadas y guardarlas
