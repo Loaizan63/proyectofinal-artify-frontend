@@ -1,4 +1,4 @@
-const URL_API = 'http://localhost:3005/api/huecos/'
+const URL_API = 'http://localhost/Proyecto_final-front/backend-php/index.php/api/huecos/'
 
 export async function fetchDb() {
     let huecos = []

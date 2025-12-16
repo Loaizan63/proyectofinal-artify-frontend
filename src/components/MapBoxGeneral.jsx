@@ -1,4 +1,4 @@
-import Map, { Marker } from 'react-map-gl';
+import Map, { Marker, Popup } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import convertirCoords from "../services/geoCoding.js";
 import { useEffect, useState } from "react"
@@ -6,25 +6,20 @@ import { fetchDb } from "../services/fetchDb"
 
 export default function MapBoxGeneral() {
     //direcciones tal y como vienen de la bd
-    const [direcciones, setDirecciones] = useState([])
-    //coordenadas que el mapa va a renderizar como markers
+    const [huecos, setHuecos] = useState([])
     const [coords, setCoords] = useState([])
-    const [categorias, setCategorias] = useState([])
-    const [markerColor, setMarkerColor] = useState("yellow")
+    const [selectedHueco, setSelectedHueco] = useState(null)
     //Configuraciones del mapa
     const ancho = "100%"
     const largo = 600
 
     //use efect para hacer el fetch de todos los huecos
-    //pero solo se guarda las direcciones en el estado local de direcciones
     useEffect(() => {
-        let mapInstance = null; // referencia para cleanup 
         async function traerHuecos() {
             try {
                 const data = await fetchDb()
                 if (data) {
-                    setCategorias(data.map(hueco => hueco.categoria));
-                    setDirecciones(data.map(hueco => hueco.direccion));
+                    setHuecos(data)
                 } else {
                     console.log("No existen huecos que mostrar")
                 }
@@ -35,54 +30,45 @@ export default function MapBoxGeneral() {
         traerHuecos()
 
     }, [])
-    //use efect para convertir las direcciones guardadas
-    //en coordenadas y guardarlas
+    
+    //use efect para convertir las direcciones guardadas en coordenadas
     useEffect(() => {
-        //se llama a la funcion convertirCoords: API de mapbox 
         const convertir = async () => {
             try {
-                //array de las direcciones convertidas en coordenadas 
                 const nuevaCoords = []
-                //tipo de for llamado "for...of" que permite usar el await
-                for (let direc of direcciones) {
-                    const data = await convertirCoords(direc);
+                for (let hueco of huecos) {
+                    const data = await convertirCoords(hueco.direccion);
                     if (data) {
-                        //se egraga cada coordenada al array si realmente se pudo convertir
-                        nuevaCoords.push(data)
-                    } else {
-                        console.log("data está vacío desde mapbox Example");
+                        nuevaCoords.push({
+                            ...hueco,
+                            coords: data
+                        })
                     }
                 }
-                //seteo local de las coordenadas
                 setCoords(nuevaCoords);
             } catch (error) {
                 console.log(error);
             }
         };
-        convertir();
-    }, [direcciones]);
-    //use effect para los colores de los marcadores
-    useEffect(() => {
-        const colores = categorias.map((categoria) => {
-            switch (categoria) {
-                case "grande":
-                    return "red"
-                case "mediano":
-                    return"yellow" //revisar colores
-                case "pequeño":
-                    return "blue"
+        if (huecos.length > 0) {
+            convertir();
+        }
+    }, [huecos]);
 
-                default:
-                    return"blue"
-            }
-        })
-        setMarkerColor(colores)
+    const getMarkerColor = (categoria) => {
+        switch (categoria) {
+            case "grande":
+                return "red"
+            case "mediano":
+                return "orange"
+            case "pequeño":
+                return "blue"
+            default:
+                return "gray"
+        }
+    }
 
-    }, [categorias])
-
-    //console.log("desde mapBox General", coords)
-    //se utiliza para el initial view del mapa 
-    const [lng0, lat0] = coords[0] || [-76.53, 3.40];
+    const [lng0, lat0] = coords[0]?.coords || [-76.53, 3.40];
 
     return (
         <Map
@@ -95,24 +81,42 @@ export default function MapBoxGeneral() {
             mapStyle="mapbox://styles/mapbox/streets-v11"
             mapboxAccessToken="pk.eyJ1Ijoic2ViMTAxMSIsImEiOiJjbWUydDVxZnUwdHV4Mmtwa3Q0b2FmdWFiIn0.4-Hb5WmIe21pLf3-clWYnw"
         >
-            <div>
-               <p>textoooo</p>
-            </div>
-            {/* Se utiliza un map para lograr recorrer todas las nuevas direcciones en forma de coordenadas
-         y mostrar todos los markers. Cada marker tiene un indice propio
-         */}
-
-            {
-
-            coords.map(([lng, lat], index) => (
+            {coords.map((hueco, index) => (
                 <Marker
                     key={index}
-                    longitude={lng}
-                    latitude={lat}
-                    color={markerColor[index]} // Puedes cambiar el color del marker aquí
+                    longitude={hueco.coords[0]}
+                    latitude={hueco.coords[1]}
+                    color={getMarkerColor(hueco.categoria)}
+                    onClick={() => setSelectedHueco(hueco)}
+                    style={{ cursor: 'pointer' }}
                 />
-                ))
-            }
+            ))}
+
+            {selectedHueco && (
+                <Popup
+                    longitude={selectedHueco.coords[0]}
+                    latitude={selectedHueco.coords[1]}
+                    onClose={() => setSelectedHueco(null)}
+                    closeButton={true}
+                    closeOnClick={false}
+                    anchor="bottom"
+                >
+                    <div style={{ padding: '0.75rem', minWidth: '250px' }}>
+                        <h6 style={{ margin: '0 0 0.5rem 0', color: '#e8edf5' }}>
+                            {selectedHueco.direccion}
+                        </h6>
+                        <p style={{ margin: '0.25rem 0', fontSize: '0.9rem', color: '#9fb3d1' }}>
+                            <strong>Categoría:</strong> {selectedHueco.categoria}
+                        </p>
+                        <p style={{ margin: '0.25rem 0', fontSize: '0.9rem', color: '#9fb3d1' }}>
+                            <strong>Observaciones:</strong> {selectedHueco.observaciones}
+                        </p>
+                        <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.85rem', color: '#9fb3d1' }}>
+                            Reportado: {selectedHueco.createdAt}
+                        </p>
+                    </div>
+                </Popup>
+            )}
         </Map >
     );
 }

@@ -6,15 +6,18 @@ import MisReportes from "./components/MisReportes"
 import { Route, Routes } from "react-router-dom"
 function App() {
   return (
-    <>
+    <div className="app-surface">
       <Header />
-      <Routes>
-        <Route path="/" element={<Hero />}></Route>
-        <Route path="/reportar" element={<Reportar />}></Route>
-        <Route path="/misReportes/:_id" element={<MisReportes />}></Route>
-        <Route path="/misReportes/" element={<MisReportes />}></Route>
-      </Routes>
-    </>
+      <main className="main-shell">
+        <Routes>
+          <Route path="/" element={<Hero />}></Route>
+          <Route path="/reportar" element={<Reportar />}></Route>
+          <Route path="/misReportes/:_id" element={<MisReportes />}></Route>
+          <Route path="/misReportes/" element={<MisReportes />}></Route>
+        </Routes>
+      </main>
+      <Footer />
+    </div>
   )
 }
 

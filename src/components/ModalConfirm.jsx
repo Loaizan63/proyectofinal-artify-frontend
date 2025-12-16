@@ -12,8 +12,8 @@ export default function Modal({ titulo,info, modalID, type}) {
                         {/*<div className="modal-header">*/}
                         <div className=" d-flex justify-content-between align-items-center ps-5 pt-4 ">
                             <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
-                            <div class="flex-grow-1 d-flex justify-content-center">
-                                <h3 class="modal-title">{titulo}</h3>
+                            <div className="flex-grow-1 d-flex justify-content-center">
+                                <h3 className="modal-title">{titulo}</h3>
                             </div>
                         </div>
                         <div className="modal-body">
@@ -24,7 +24,7 @@ export default function Modal({ titulo,info, modalID, type}) {
                                     </p>
                                 </div>
                             </div>
-                            <div class="text-center mb-2">
+                            <div className="text-center mb-2">
                                 <button className="btn btn-primary btn-lg" data-bs-dismiss="modal">Cerrar</button>
                             </div>
                         </div>
@@ -51,8 +51,8 @@ export default function Modal({ titulo,info, modalID, type}) {
                         {/*<div className="modal-header">*/}
                         <div className=" d-flex justify-content-between align-items-center ps-5 pt-4 ">
                             <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
-                            <div class="flex-grow-1 d-flex justify-content-center">
-                                <h3 class="modal-title">{titulo}</h3>
+                            <div className="flex-grow-1 d-flex justify-content-center">
+                                <h3 className="modal-title">{titulo}</h3>
                             </div>
                         </div>
                         <div className="modal-body">
@@ -63,7 +63,7 @@ export default function Modal({ titulo,info, modalID, type}) {
                                     </p>
                                 </div>
                             </div>
-                            <div class="text-center mb-2">
+                            <div className="text-center mb-2">
                                 <button className="btn btn-primary btn-lg" data-bs-dismiss="modal">Me extraña araña</button>
                             </div>
                         </div>

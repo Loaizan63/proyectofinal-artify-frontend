@@ -6,59 +6,82 @@ export default function Hero() {
 
     return (
         <>
-            <section class="">
-                <div class="row shadow rounded-3 mb-4 bg-primary text-white">
-                    <div class="col d-flex align-items-center px-4 py-5 my-5">
-                        <div class="container m-2 text-center ">
-                            <h2 className="p-2">¿Hay muchos huecos por tu cuadra, ve? </h2>
-                            <div class="m-3 p-2 h6">
-                                <h7>Reportalos y ayudemos a llevar un recuento de todos los craters que dañan nuestros vehiculos</h7>
-                            </div>
-                            <Link className="text-white text-decoration-none" to={"/reportar"}>
-                                <button type="button" class="btn btn-light btn-lg text-primary font-weight-bold pe-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus ms-2 me-2 mb-1" viewBox="0 0 16 16">
-                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
-                                    </svg>
-                                    Reportalo!!
+            <section className="hero-shell">
+                <div className="hero-grid">
+                    <div className="hero-copy fade-up">
+                        <span className="pill-label">#VíasSinHuecos</span>
+                        <h1>Reporta huecos y cuidemos las calles, ve</h1>
+                        <p className="lead">
+                            Súmate al monitoreo ciudadano: señalemos cráteres, prioricemos arreglos y protejamos nuestros vehículos.
+                        </p>
+                        <div className="cta-row">
+                            <Link to={"/reportar"}>
+                                <button type="button" className="btn btn-pill btn-contrast">
+                                    Reportalo ya
+                                </button>
+                            </Link>
+                            <Link to={"/misReportes"}>
+                                <button type="button" className="btn btn-pill btn-quiet">
+                                    Ver mis reportes
                                 </button>
                             </Link>
                         </div>
+                        <div className="stat-row">
+                            <div className="stat-card">
+                                <strong>+100</strong>
+                                <span className="text-muted">Reportes ciudadanos activos</span>
+                            </div>
+                            <div className="stat-card">
+                                <strong>24h</strong>
+                                <span className="text-muted">Respuesta promedio</span>
+                            </div>
+                            <div className="stat-card">
+                                <strong>Mapa en vivo</strong>
+                                <span className="text-muted">Ubicación y categoría</span>
+                            </div>
+                        </div>
                     </div>
-                    <div id="carousel_dad" class="col m-3">
-                        <div className="container ">
-                            <div id="carouselExample" class="carousel slide ">
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active rounded-3">
-                                        <img src="https://www.laopinion.co/sites/default/files/2021-05/Invasi%C3%B3n-de-huecos-en-las-calles-de-Cucutaprados-del-este-prados-del-este-2.jpg" class="d-block w-100" alt="..." />
+
+                    <div className="hero-visual fade-up">
+                        <div className="floating-card">
+                            <div id="carouselExample" className="carousel slide">
+                                <div className="carousel-inner">
+                                    <div className="carousel-item active">
+                                        <img src="https://www.laopinion.co/sites/default/files/2021-05/Invasi%C3%B3n-de-huecos-en-las-calles-de-Cucutaprados-del-este-prados-del-este-2.jpg" className="d-block w-100" alt="Calle con huecos" />
                                     </div>
-                                    <div class="carousel-item rounded-3">
-                                        <img src="https://personeriacali.gov.co/wp-content/uploads/2022/08/cali-huecos-768x462.jpg" class="d-block w-100" alt="..." />
+                                    <div className="carousel-item">
+                                        <img src="https://personeriacali.gov.co/wp-content/uploads/2022/08/cali-huecos-768x462.jpg" className="d-block w-100" alt="Vehículos esquivando baches" />
                                     </div>
-                                    <div class="carousel-item rounded-3">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_QkKQkNB8wRsnYMBcM2HOB0saTjihZ5xjew&s" class="d-block w-100" alt="..." />
+                                    <div className="carousel-item">
+                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_QkKQkNB8wRsnYMBcM2HOB0saTjihZ5xjew&s" className="d-block w-100" alt="Ciudad con crater" />
                                     </div>
                                 </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
+                                <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span className="visually-hidden">Anterior</span>
                                 </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
+                                <button className="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span className="visually-hidden">Siguiente</span>
                                 </button>
                             </div>
                         </div>
-                        <div className="text-center">
-                            <p>Si estás cansado de esto, reporta!</p>
-                        </div>
+                        <div className="text-muted text-center mt-3">Si estás cansado de esquivar huecos, reporta.</div>
                     </div>
                 </div>
-                <div className="text-center container">
-                    <h2 class="m-5">MAPA AQUI</h2>
-                    <div>
+
+                <div className="map-panel fade-up">
+                    <div className="panel-header">
+                        <div>
+                            <span className="pill-label">Mapa en vivo</span>
+                            <h3 style={{ marginTop: "0.5rem", marginBottom: 0 }}>Revisa dónde están los huecos</h3>
+                            <p className="text-muted" style={{ margin: 0 }}>Ubica reportes en tiempo real con su categoría de riesgo.</p>
+                        </div>
+                        <div className="pill-soft">Mapbox conectado</div>
+                    </div>
+                    <div className="map-frame">
                         <MyMap />
                     </div>
-                    {/* <img class="img-fluid img" src={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/pin-s+ff0000(-74.5,40),pin-l+0000ff(-75,39)/74.5,40,9/800x600?access_token=pk.eyJ1Ijoic2ViMTAxMSIsImEiOiJjbWUydDVxZnUwdHV4Mmtwa3Q0b2FmdWFiIn0.4-Hb5WmIe21pLf3-clWYnw`} alt="" /> */}
                 </div>
 
             </section>
