@@ -24,18 +24,35 @@ if (strpos($path, '/api/') !== false) {
 $segments = array_values(array_filter(explode('/', trim($path, '/'))));
 
 // Expect routes like /api/huecos, /api/huecos/{id}, /api/huecos/direcSearch/{query}
-if (!isset($segments[0]) || $segments[0] !== 'api' || !isset($segments[1]) || $segments[1] !== 'huecos') {
+// Root or unknown: show API info including server endpoint
+if (!isset($segments[0]) || $segments[0] !== 'api') {
+    $proto = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+    $host = $_SERVER['HTTP_HOST'] ?? ($_SERVER['SERVER_NAME'] ?? 'localhost');
+    $base = rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? '/'), '/');
+    $apiBase = $proto . '://' . $host . $base . '/api';
     respond(200, [
         'mensaje' => 'API de seguvia funcionando',
+        'server' => [
+            'protocol' => $proto,
+            'host' => $host,
+            'server_addr' => $_SERVER['SERVER_ADDR'] ?? null,
+            'server_name' => $_SERVER['SERVER_NAME'] ?? null,
+            'script' => $_SERVER['SCRIPT_NAME'] ?? null,
+            'api_base' => $apiBase,
+        ],
         'rutas_disponibles' => [
             'GET /api/huecos' => 'Obtener todos los huecos',
             'GET /api/huecos/{id}' => 'Obtener un hueco específico',
             'GET /api/huecos/direcSearch/{término}' => 'Buscar por dirección',
             'POST /api/huecos' => 'Crear nuevo hueco',
             'PUT /api/huecos/{id}' => 'Actualizar hueco',
-            'DELETE /api/huecos/{id}' => 'Eliminar hueco'
+            'DELETE /api/huecos/{id}' => 'Eliminar hueco',
+            'GET /api/server/info' => 'Información del servidor y endpoint',
         ],
-        'ejemplo' => 'http://localhost/Proyecto_final-front/backend-php/index.php/api/huecos/'
+        'ejemplos' => [
+            'listar' => $apiBase . '/huecos',
+            'info_servidor' => $apiBase . '/server/info',
+        ],
     ]);
 }
 
@@ -44,6 +61,24 @@ $db = getConnection();
 ensureSchema($db);
 
 try {
+    // GET /api/server/info -> returns server addressing details
+    if ($method === 'GET' && count($segments) === 3 && $segments[1] === 'server' && $segments[2] === 'info') {
+        $proto = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+        $host = $_SERVER['HTTP_HOST'] ?? ($_SERVER['SERVER_NAME'] ?? 'localhost');
+        $base = rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? '/'), '/');
+        $apiBase = $proto . '://' . $host . $base . '/api';
+        respond(200, [
+            'protocol' => $proto,
+            'host' => $host,
+            'server_addr' => $_SERVER['SERVER_ADDR'] ?? null,
+            'server_name' => $_SERVER['SERVER_NAME'] ?? null,
+            'remote_addr' => $_SERVER['REMOTE_ADDR'] ?? null,
+            'script' => $_SERVER['SCRIPT_NAME'] ?? null,
+            'api_base' => $apiBase,
+            'origin_allowed' => 'http://localhost:5173',
+        ]);
+    }
+
     if ($method === 'GET' && count($segments) === 2) {
         // GET /api/huecos
         $rows = $db->query('SELECT * FROM huecos ORDER BY created_at DESC')->fetchAll(PDO::FETCH_ASSOC);
