@@ -4,7 +4,9 @@
 declare(strict_types=1);
 
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: http://localhost:5173');
+// Dynamic CORS: reflect Origin when present, otherwise allow all (no credentials used)
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '*';
+header('Access-Control-Allow-Origin: ' . $origin);
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 
@@ -164,14 +166,19 @@ function respond(int $status, $data): void
 
 function getConnection(): PDO
 {
-    $host = 'localhost';
-    $dbname = 'artify';
-    $username = 'root';
-    $password = '';
-    
+    // Remote MySQL credentials
+    $host = 'srv1710.hstgr.io';
+    $dbname = 'u896023791_secuvia';
+    $username = 'u896023791_secuvia';
+    $password = 'T:cJr^87*S~9';
+
     $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
-    $pdo = new PDO($dsn, $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $options = [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES => false,
+    ];
+    $pdo = new PDO($dsn, $username, $password, $options);
     return $pdo;
 }
 

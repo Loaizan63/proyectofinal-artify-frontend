@@ -1,4 +1,6 @@
-const URL_API = 'http://localhost/Proyecto_final-front/backend-php/index.php/api/huecos/'
+// API root can be configured via env var VITE_API_ROOT, e.g., https://srv1710.hstgr.io/path/backend-php/index.php
+const API_ROOT = (import.meta?.env?.VITE_API_ROOT || `${window.location.origin}/Proyecto_final-front/backend-php/index.php`).replace(/\/$/, '')
+const URL_API = `${API_ROOT}/api/huecos/`
 
 export async function fetchDb() {
     let huecos = []
