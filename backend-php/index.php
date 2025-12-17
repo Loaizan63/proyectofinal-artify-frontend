@@ -166,8 +166,8 @@ function respond(int $status, $data): void
 
 function getConnection(): PDO
 {
-    // Remote MySQL credentials
-    $host = 'srv1710.hstgr.io';
+    // MySQL credentials
+    $host = 'localhost';
     $dbname = 'u896023791_secuvia';
     $username = 'u896023791_secuvia';
     $password = 'T:cJr^87*S~9';
