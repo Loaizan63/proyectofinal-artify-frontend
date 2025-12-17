@@ -1,16 +1,35 @@
-# 🚧 Frontend - Reporte de Huecos en Cali
+# seguvia - Reporta vías y huecos
 
-Este repositorio contiene el **frontend** de la aplicación web para reportar y buscar huecos en la ciudad de Cali.  
-Fue desarrollado con **React + Vite** y utiliza **Bootstrap** para los estilos.  
-
-El frontend consume la API del backend y muestra los huecos reportados en un **mapa interactivo**, un listado en **cards** y permite crear y consultar reportes.
+Aplicación web para reportar y consultar huecos en las vías públicas.  
+Desarrollado con **React + Vite**, **Bootstrap**, **Mapbox** y backend **PHP + MySQL**.
 
 ---
-## NOTA
-Para que este proyecto funcione se debe clonar primero el repositorio del back 
-```bash
-https://github.com/joansalcedo1/Proyecto_final_Bootcamp_back
-````
+
+## 🚀 Deployment
+
+### Frontend (Netlify)
+**URL:** https://splendid-parfait-00d83c.netlify.app/
+
+### Backend (PHP + MySQL)
+**URL:** https://loaiza.cloud/secuvia/backend-php/
+
+**Base de Datos:**
+- Host: srv1710.hstgr.io
+- Database: u896023791_secuvia
+
+---
+
+## 🔧 Configuración Netlify
+
+Para que el frontend en Netlify se conecte al backend:
+
+1. Ve a **Site settings → Environment variables**
+2. Agrega la variable:
+   - **Name:** `VITE_API_ROOT`
+   - **Value:** `https://loaiza.cloud/secuvia/backend-php/index.php`
+3. **Redeploy** el sitio para aplicar cambios
+
+---
 
 
 ## 📦 Páginas principales
@@ -45,20 +64,55 @@ https://github.com/joansalcedo1/Proyecto_final_Bootcamp_back
 
 1. Clonar el repositorio:
    ```bash
-   git clone https://github.com/usuario/front-huecos.git
-   cd front-huecos
-   
+   git clone https://github.com/Loaizan63/proyectofinal-artify-frontend.git
+   cd proyectofinal-artify-frontend
+   ```
+
 2. Instalar dependencias:
-```bash
-npm install
-```
-3. Iniciar el servidor de desarrollo:
-```bash
-npm run dev
-```
-4.Abrir en el navegador:
-```bash
-http://localhost:5173
-```
-🎯 Objetivo
-Proveer una interfaz clara y sencilla para que los usuarios puedan reportar y consultar huecos en la ciudad de Cali.
+   ```bash
+   npm install
+   ```
+
+3. Configurar variable de entorno (opcional para local):
+   ```bash
+   cp .env.example .env
+   # Editar .env y ajustar VITE_API_ROOT si es necesario
+   ```
+
+4. Iniciar el servidor de desarrollo:
+   ```bash
+   npm run dev
+   ```
+
+5. Abrir en el navegador:
+   ```
+   http://localhost:5173
+   ```
+
+---
+
+## 📡 API Endpoints
+
+- `GET /api/huecos` - Listar todos los huecos
+- `GET /api/huecos/{id}` - Obtener un hueco específico
+- `GET /api/huecos/direcSearch/{término}` - Buscar por dirección
+- `POST /api/huecos` - Crear nuevo hueco
+- `PUT /api/huecos/{id}` - Actualizar hueco
+- `DELETE /api/huecos/{id}` - Eliminar hueco
+- `GET /api/server/info` - Información del servidor
+
+---
+
+## 🛠️ Stack Tecnológico
+
+- **Frontend:** React + Vite + Mapbox GL
+- **Estilos:** Bootstrap 5
+- **Backend:** PHP + MySQL
+- **Deploy:** Netlify (frontend) + hosting PHP (backend)
+- **Router:** React Router DOM
+
+---
+
+## 🎯 Objetivo
+
+Proveer una interfaz clara y sencilla para que los usuarios puedan reportar y consultar huecos en las vías públicas, mejorando la gestión y priorización de reparaciones.
