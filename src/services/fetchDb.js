@@ -1,5 +1,5 @@
-// API root can be configured via env var VITE_API_ROOT, e.g., https://srv1710.hstgr.io/path/backend-php/index.php
-const API_ROOT = (import.meta?.env?.VITE_API_ROOT || `${window.location.origin}/Proyecto_final-front/backend-php/index.php`).replace(/\/$/, '')
+// API root - uses loaiza.cloud by default, can override with VITE_API_ROOT env var
+const API_ROOT = (import.meta?.env?.VITE_API_ROOT || 'https://loaiza.cloud/secuvia/backend-php/index.php').replace(/\/$/, '')
 const URL_API = `${API_ROOT}/api/huecos/`
 
 export async function fetchDb() {

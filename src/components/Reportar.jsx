@@ -39,7 +39,7 @@ export default function Reportar() {
 
         const huecoData = { direccion, categoria, observaciones };
         try {
-            const API_ROOT = (import.meta?.env?.VITE_API_ROOT || `${window.location.origin}/Proyecto_final-front/backend-php/index.php`).replace(/\/$/, '')
+            const API_ROOT = (import.meta?.env?.VITE_API_ROOT || 'https://loaiza.cloud/secuvia/backend-php/index.php').replace(/\/$/, '')
             const res = await fetch(`${API_ROOT}/api/huecos/`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
